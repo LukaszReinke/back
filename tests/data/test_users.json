@@ -222,7 +222,7 @@
                 "role": "super_admin"
             },
                 "client": "superadmin@example.com",
-                "expected_status": 403
+                "expected_status": 200
         },
         {
             "user": { 
@@ -242,7 +242,7 @@
                 "role": "admin"
             },
                 "client": "admin@example.com",
-                "expected_status": 403
+                "expected_status": 200
         },
         {
             "user": {
@@ -282,7 +282,7 @@
                 "role": "super_admin"
             },
                 "client": "superadmin@example.com",
-                "expected_status": 403
+                "expected_status": 200
         },
         {
             "user": {
@@ -305,59 +305,12 @@
                 "expected_status": 422
         }
     ],
-    "approve": [
-        {
-            "email": "testuser4@example.com",
-            "client": "superadmin@example.com",
-            "expected_status": 200
-        },
-        {
-            "email": "testuser5@example.com",
-            "client": "superadmin@example.com",
-            "expected_status": 200
-        },
-         {
-            "email": "testuser6@example.com",
-            "client": "superadmin@example.com",
-            "expected_status": 200
-        },
-        {
-            "email": "testuser7@example.com",
-            "client": "admin@example.com",
-            "expected_status": 200
-        },
-        {
-            "email": "testuser8@example.com",
-            "client": "admin@example.com",
-            "expected_status": 200
-        },
-        {
-            "email": "testuser9@example.com",
-            "client": "admin@example.com",
-            "expected_status": 200
-        },
-        {
-            "email": "testuser10@example.com",
-            "client": "moderator@example.com",
-            "expected_status": 403
-        },
-        {
-            "email": "testuser11@example.com",
-            "client": "moderator@example.com",
-            "expected_status": 403
-        },
-        {
-            "email": "testuser13@example.com",
-            "client": "moderator@example.com",
-            "expected_status": 403
-        }
-    ],
     "change_role": [
         {
             "email": "testuser5@example.com",
             "role": "super_admin",
             "client": "superadmin@example.com",
-            "expected_status": 403
+            "expected_status": 200
         },
         {
             "email": "testuser5@example.com",
@@ -375,25 +328,25 @@
             "email": "testuser4@example.com",
             "role": "super_admin",
             "client": "superadmin@example.com",
-            "expected_status": 403
+            "expected_status": 400
         },
         {
             "email": "testuser4@example.com",
             "role": "user_moderator",
             "client": "superadmin@example.com",
-            "expected_status": 403
+            "expected_status": 200
         },
         {
-            "email": "testuser4@example.com",
+            "email": "testuser5@example.com",
             "role": "admin",
             "client": "superadmin@example.com",
-            "expected_status": 403
+            "expected_status": 400
         },
         {
-            "email": "testuser4@example.com",
+            "email": "testuser5@example.com",
             "role": "user_moderator",
             "client": "admin@example.com",
-            "expected_status": 403
+            "expected_status": 200
         },
         {
             "email": "testuser7@example.com",

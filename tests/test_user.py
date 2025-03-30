@@ -21,10 +21,6 @@ class TestUser:
     def add_users(self, request: pytest.FixtureRequest) -> dict[str, str]:
         return request.param
 
-    @pytest.fixture(params=list(DATA["approve"]))
-    def approve_users(self, request: pytest.FixtureRequest) -> dict[str, str]:
-        return request.param
-
     @pytest.fixture(params=list(DATA["change_role"]))
     def change_user_role(self, request: pytest.FixtureRequest) -> dict[str, str]:
         return request.param

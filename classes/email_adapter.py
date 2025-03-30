@@ -1,135 +1,53 @@
 import asyncio
+import aiosmtplib
+import os
 from aiosmtplib import SMTP
 from email.message import EmailMessage
-from email.mime.text import MIMEText
-from os.path import isfile
+from dotenv import load_dotenv
+from app_exceptions import errors
+
+load_dotenv()  # Wczytaj zmienne z .env
 
 
 class EmailAdapter:
-    def __init__(
-        self,
-        *,
-        smtp_server: str,
-        port: int,
-        username: str,
-        password: str,
-    ):
-        """Initialize the EmailSender class with SMTP server details."""
-        self.smtp_server = smtp_server
-        self.port = port
-        self.username = username
-        self.password = password
+    def __init__(self):
+        """Inicjalizacja klasy EmailAdapter"""
+        self.smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
+        self.port = int(os.getenv("SMTP_PORT", 587))
+        self.username = os.getenv("SMTP_USERNAME")
+        self.password = os.getenv("SMTP_PASSWORD")
+        self.use_tls = self.port == 587
+        self.smtp = None  # Inicjalizacja połączenia
 
-    async def send_email(self, message: EmailMessage | MIMEText):
-        """Send an email using the provided details."""
+    async def __aenter__(self):
+        """Nawiązuje połączenie SMTP przy użyciu asynchronicznego kontekstu"""
+        self.smtp = SMTP(hostname=self.smtp_server, port=self.port, use_tls=not self.use_tls)
+        await self.smtp.connect()
+        await self.smtp.login(self.username, self.password)
+        return self
 
+    async def __aexit__(self, exc_type, exc, tb):
+        """Zamyka połączenie SMTP po zakończeniu użycia klasy"""
+        if self.smtp:
+            await self.smtp.quit()
+
+    async def send_email(self, recipient: str, subject: str, content: str, content_type: str = "html") -> bool:
+        """Wysyła e-mail do określonego odbiorcy"""
         try:
-            async with SMTP(hostname=self.smtp_server, port=self.port) as smtp:
-                await smtp.connect()
-                await smtp.starttls()
-                await smtp.login(self.username, self.password)
-                await smtp.send_message(message)
-                print("Email sent successfully!")
-        except Exception as e:
-            print(f"Failed to send email: {e}")
+            message = EmailMessage()
+            message["From"] = self.username
+            message["To"] = recipient
+            message["Subject"] = subject
+            message.set_content(content, subtype=content_type.lower())
 
-    async def create_email_message(
-        self,
-        *,
-        sender: str,
-        recipient: str,
-        subject: str,
-        body: str,
-        html_file_path: str | None = None,
-        html: str | None = None,
-    ) -> EmailMessage:
+            await self.smtp.send_message(message)
+            return True
+        
+        except aiosmtplib.SMTPAuthenticationError:
+            raise errors.EmailAuthenticationError()
 
-        message = EmailMessage()
-        message["From"] = sender
-        message["To"] = recipient
-        message["Subject"] = subject
-        message["Reply-To"] = sender
-        message["Return-Path"] = sender
-        message.set_content(body)
-
-        if html_file_path is not None:
-            html = await self._read_html_file(html_file_path)
-
-            if isinstance(html, str):
-                message.add_alternative(html, subtype="html")
-
-        return message
-
-    async def create_mime_text_email(
-        self,
-        *,
-        sender: str,
-        recipient: str,
-        subject: str,
-        body: str,
-        html_file_path: str | None = None,
-        html: str | None = None,
-    ) -> MIMEText:
-
-        if html_file_path is not None:
-            html = await self._read_html_file(html_file_path)
-
-        if html is not None:
-            message = MIMEText(html, "html")
-        else:
-            message = MIMEText(body, "plain")
-
-        message = MIMEText(body, "plain")
-        message["From"] = sender
-        message["To"] = recipient
-        message["Subject"] = subject
-        message["Reply-To"] = sender
-        message["Return-Path"] = sender
-
-        return message
-
-    async def _read_html_file(self, file_path: str) -> str | None:
-        if not file_path.lower().endswith(".html"):
-            raise ValueError("The provided file is not an HTML file.")
-
-        if not isfile(file_path):
-            raise FileNotFoundError(f"The file {file_path} does not exist.")
-
-        try:
-            with open(file_path, "r", encoding="utf-8") as file:
-                return file.read()
+        except aiosmtplib.SMTPException:
+            raise errors.SMTPConnectionError()
 
         except Exception as e:
-            print(f"Failed to read HTML file: {e}")
-            raise
-
-
-async def main():
-    email_adapter = EmailAdapter(
-        smtp_server="smtp.gmail.com",
-        port=587,
-        username="your_email@gmail.com",
-        password="your_password",
-    )
-
-    message = await email_adapter.create_email_message(
-        sender="your_email@gmail.com",
-        recipient="recipient@example.com",
-        subject="Test Email",
-        body="This is a test email sent using aiosmtplib.",
-        # html_file_path="email_template.html, html = "..."",
-    )
-
-    message = await email_adapter.create_mime_text_email(
-        sender="your_email@gmail.com",
-        recipient="recipient@example.com",
-        subject="Test Email",
-        body="This is a test email sent using aiosmtplib.",
-        # html_file_path="email_template.html, or html = "...",
-    )
-
-    await email_adapter.send_email(message)
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+            raise errors.EmailSendingError({"message": str(e)})

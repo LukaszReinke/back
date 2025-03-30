@@ -1,5 +1,11 @@
 import controllers as ctrl
 import repositories as rp
+import os
+from dotenv import load_dotenv
+from classes.email_service import EmailService
+from classes.email_adapter import EmailAdapter
+
+load_dotenv() 
 
 from authentication import (
     PasswordManager,
@@ -12,6 +18,8 @@ from app_exceptions import errors
 from core.enums import RolePermissions, Role
 
 password_manager = PasswordManager()
+email_adapter = EmailAdapter()
+email_service = EmailService()
 
 
 class UserService:
@@ -21,7 +29,7 @@ class UserService:
         _role: Role = RolePermissions.get_role(str(_user.role))
         current_user_role: Role = RolePermissions.get_role(str(current_user.role))
 
-        if int(current_user_role.level) >= int(_role.level):  # type: ignore
+        if int(current_user_role.level) > int(_role.level):  # type: ignore
             raise errors.InsufficientPermission
 
         check_user = await rp.UserRepository.get_user_by_email(_user.email)
@@ -30,6 +38,21 @@ class UserService:
 
         initial_password = password_manager.generate_password()
         hashed_password = password_manager.hash_password(initial_password)
+
+        template_path = os.path.join("html", "approved.html")
+        email_content = await email_service.load_add_user_html_template(
+            template_path=template_path,
+            user=_user,
+            link=os.getenv("FE_DOMAIN_LOGIN_ADDRESS"),
+            generated_password=initial_password
+        )
+
+        async with email_adapter as adapter:
+            await adapter.send_email(
+                recipient=_user.email,
+                subject="Your Account Has Been Created",
+                content=email_content
+            )
 
         user = UserBase(
             email=_user.email,
@@ -96,13 +119,20 @@ class UserService:
             raise errors.UserNotFound
 
         _role: Role = _user.get_role()
-        _change_role = RolePermissions.get_role(str(_change.role))
         current_user_role: Role = RolePermissions.get_role(str(current_user.role))
 
-        if _change_role is None:
-            raise errors.RoleNotFound
+        if _change.role is not None:
+            _change_role = RolePermissions.get_role(str(_change.role))
+            if _change_role is None:
+                raise errors.RoleNotFound
 
-        if _role.level >= current_user_role.level >= _change_role.level:
+            if _change_role.level < current_user_role.level:
+                raise errors.InsufficientPermission
+
+            if _change_role.level == _role.level:
+                raise errors.RoleAlreadyAssigned
+
+        if _role.level < current_user_role.level:
             raise errors.InsufficientPermission
 
         for key, value in _change.model_dump(exclude_unset=True).items():

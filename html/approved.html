@@ -5,54 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Approval</title>
     <style>
-        body {
+        body {{
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
             margin: 0;
             padding: 0;
-        }
-        .email-container {
+        }}
+        .email-container {{
             max-width: 600px;
             margin: 20px auto;
             background: #ffffff;
             border: 1px solid #ddd;
             border-radius: 8px;
             overflow: hidden;
-        }
-        .email-header {
+        }}
+        .email-header {{
             background-color: #4CAF50;
             color: #ffffff;
             text-align: center;
             padding: 20px;
             font-size: 1.5em;
-        }
-        .email-body {
+        }}
+        .email-body {{
             padding: 20px;
             color: #333;
-        }
-        .email-body p {
+        }}
+        .email-body p {{
             margin: 0 0 10px;
             line-height: 1.6;
-        }
-        .email-footer {
+        }}
+        .email-footer {{
             background-color: #f1f1f1;
             color: #666;
             text-align: center;
             padding: 10px;
             font-size: 0.9em;
-        }
+        }}
     </style>
 </head>
 <body>
     <div class="email-container">
         <div class="email-header">
-            Your Account Has Been Approved!
+            Your Account Has Been Created!
         </div>
         <div class="email-body">
-            <p>Hello <strong>{user.username}</strong>,</p>
-            <p>Your account has been approved by the admin. You can now log in using the following credentials:</p>
-            <p><strong>Username:</strong> {user.username}</p>
+            <p>Hello <strong>{first_name} {last_name}</strong>,</p>
+            <p>Your account has been created by the admin. You can now log in using the following credentials:</p>
+            <p><strong>Email:</strong> {email}</p>
             <p><strong>Password:</strong> {generated_password}</p>
+            <p><strong>Click link to log in into your Highly Driven Account:</strong></p>
+            <p>
+                <a href="{link}" target="_blank">
+                    Log in to Highly Driven
+                </a>
+            </p>
             <p>Best regards,<br>The Team</p>
         </div>
         <div class="email-footer">

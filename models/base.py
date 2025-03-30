@@ -5,11 +5,13 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.asyncio.engine import AsyncEngine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
+
+load_dotenv()  # Wczytaj zmienne z .env
 
 Base = declarative_base()
 
-DATABASE_URL = "postgresql+asyncpg://postgres_user:SportsApp123456@postgres:5432/hds_db_develop"
-
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 def create_engine(database_url: str | None = None) -> AsyncEngine:  # type: ignore
     global engine
@@ -50,12 +52,7 @@ async def reset_db():
 
 
 if __name__ == "__main__":
-    database_url = os.getenv(
-        "DATABASE_URL",
-        "postgresql+asyncpg://postgres_user:SportsApp123456@postgres:5432/hds_db_develop",
-    )
-
-    create_engine(database_url)
+    create_engine(DATABASE_URL)
 
     AsyncSessionLocal: sessionmaker[AsyncSession] = sessionmaker(  # type: ignore
         bind=engine,  # type: ignore

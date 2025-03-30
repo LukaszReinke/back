@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Approval</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .email-header {
+            background-color: #4CAF50;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5em;
+        }
+        .email-body {
+            padding: 20px;
+            color: #333;
+        }
+        .email-body p {
+            margin: 0 0 10px;
+            line-height: 1.6;
+        }
+        .email-footer {
+            background-color: #f1f1f1;
+            color: #666;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            Your Account Has Been Approved!
+        </div>
+        <div class="email-body">
+            <p>Hello <strong>{user.username}</strong>,</p>
+            <p>Your account has been approved by the admin. You can now log in using the following credentials:</p>
+            <p><strong>Username:</strong> {user.username}</p>
+            <p><strong>Password:</strong> {generated_password}</p>
+            <p>Best regards,<br>The Team</p>
+        </div>
+        <div class="email-footer">
+            This is an automated email. Please do not reply to this message.
+        </div>
+    </div>
+</body>
+</html>

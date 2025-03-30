@@ -1,0 +1,33 @@
+{
+    "users": {
+        "1": {
+
+            "email": "superadmin@example.com",
+            "first_name": "Super",
+            "last_name":"Admin",
+            "is_initial_password": false,
+            "role": "super_admin"
+        },
+        "2": {
+            "email": "admin@example.com",
+            "first_name": "Second",
+            "last_name":"Admin",
+            "is_initial_password": false,
+            "role": "admin"
+        },
+        "3": {
+            "email": "hr@example.com",
+            "first_name": "Human",
+            "last_name":"Resources",
+            "is_initial_password": false,
+            "role": "user_moderator"
+        },
+        "4": {
+            "email": "moderator@example.com",
+            "first_name": "Moderator",
+            "last_name":"First",
+            "is_initial_password": false,
+            "role": "event_moderator"
+        }
+    }
+}

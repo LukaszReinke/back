@@ -1,0 +1,481 @@
+{
+    "users": [
+        {
+            "email": "testuser4@example.com",
+            "first_name": "testuser4",
+            "last_name": "example_last_name4",
+            "is_initial_password": true,
+            "role": "super_admin"
+        },
+        {
+            "email": "testuser5@example.com",
+            "first_name": "testuser5",
+            "last_name": "example_last_name5",
+            "is_initial_password": true,
+            "role": "admin"
+        },
+        {
+            "email": "testuser6@example.com",
+            "first_name": "testuser6",
+            "last_name": "example_last_name6",
+            "is_initial_password": true,
+            "role": "user_moderator"
+        },
+        {
+            "email": "testuser7@example.com",
+            "first_name": "testuser7",
+            "last_name": "example_last_name7",
+            "is_initial_password": true,
+            "role": "super_admin"
+        },
+        {
+            "email": "testuser8@example.com",
+            "first_name": "testuser8",
+            "last_name": "example_lastnam8e",
+            "is_initial_password": true,
+            "role": "admin"
+        },
+        {
+            "email": "testuser9@example.com",
+            "first_name": "testuser9",
+            "last_name": "example_last_name9",
+            "is_initial_password": true,
+            "role": "user_moderator"
+        },
+        {
+            "email": "testuser10@example.com",
+            "first_name": "testuser10",
+            "last_name": "example_last_name10",
+            "is_initial_password": true,
+            "role": "super_admin"
+        },
+        {
+            "email": "testuser11@example.com",
+            "first_name": "testuser11",
+            "last_name": "example_last_name11",
+            "is_initial_password": true,
+            "role": "admin"
+        },
+        {
+            "email": "testuser12@example.com",
+            "first_name": "testuser12",
+            "last_name": "example_last_name12",
+            "is_initial_password": true,
+            "role": "user_moderator"
+        },
+        {
+            "email": "testuser13@example.com",
+            "first_name": "testuser13",
+            "last_name": "example_last_name13",
+            "is_initial_password": true,
+            "role": "super_admin"
+        },
+        {
+            "email": "testuser14@example.com",
+            "first_name": "testuser14",
+            "last_name": "example_last_name14",
+            "is_initial_password": true,
+            "role": "admin"
+        },
+        {
+            "email": "testuser15@example.com",
+            "first_name": "testuser15",
+            "last_name": "example_last_name15",
+            "is_initial_password": true,
+            "role": "user_moderator"
+        },
+        {
+            "email": "testuser16@example.com",
+            "first_name": "testuser16",
+            "last_name": "example_last_name16",
+            "is_initial_password": true,
+            "role": "super_admin"
+        },
+        {
+            "email": "testuser17@example.com",
+            "first_name": "testuser17",
+            "last_name": "example_last_name17",
+            "is_initial_password": true,
+            "role": "admin"
+        },
+        {
+            "email": "testuser18@example.com",
+            "first_name": "testuser18",
+            "last_name": "example_last_name18",
+            "is_initial_password": true,
+            "role": "user_moderator"
+        },
+        {
+            "email": "testuser19@example.com",
+            "first_name": "testuser19",
+            "last_name": "example_last_name19",
+            "is_initial_password": true,
+            "role": "super_admin"
+        },
+        {
+            "email": "testuser20@example.com",
+            "first_name": "testuser20",
+            "last_name": "example_last_name20",
+            "is_initial_password": true,
+            "role": "admin"
+        },
+        {
+            "email": "testuser21@example.com",
+            "first_name": "testuser21",
+            "last_name": "example_last_name21",
+            "is_initial_password": true,
+            "role": "user_moderator"
+        }
+    ],
+    "get_all_users": [
+        {
+
+            "client": "superadmin@example.com",
+            "expected_status": 200
+        },
+        {
+            "client": "admin@example.com",
+            "expected_status": 200
+
+        },
+        {
+            "client": "moderator@example.com",
+            "expected_status": 200
+        }
+    ],
+    "get_user": [
+        {
+            "user_id": 1,
+            "client": "superadmin@example.com",
+            "expected_status": 200
+        },
+        {
+            "user_id": 2,
+            "client": "superadmin@example.com",
+            "expected_status": 200
+        },
+        {
+            "user_id": 100,
+            "client": "superadmin@example.com",
+            "expected_status": 404
+        },
+        {
+            "user_id": 1,
+            "client": "admin@example.com",
+            "expected_status": 200
+
+        },
+        {
+            "user_id": 2,
+            "client": "admin@example.com",
+            "expected_status": 200
+
+        },
+        {
+            "user_id": 100,
+            "client": "admin@example.com",
+            "expected_status": 404
+
+        },
+        {
+            "user_id": 1,
+            "client": "moderator@example.com",
+            "expected_status": 200
+        },
+        {
+            "user_id": 2,
+            "client": "moderator@example.com",
+            "expected_status": 200
+        },
+        {
+            "user_id": 100,
+            "client": "moderator@example.com",
+            "expected_status": 404
+        }
+    ],
+    "add":[
+        {
+            "user": {
+                "email": "testuser22@example.com",
+                "first_name": "testuser22",
+                "last_name": "example_last_name22",
+                "role": "user_moderator"
+            },
+                "client": "superadmin@example.com",
+                "expected_status": 200
+        },
+        {
+            "user": {
+                "email": "testuser23@example.com",
+                "first_name": "testuser23",
+                "last_name": "example_last_name23",                
+                "role": "admin"
+            },
+                "client": "superadmin@example.com",
+                "expected_status": 200
+        },
+        {
+            "user": {
+                "email": "testuser24@example.com",
+                "first_name": "testuser24",
+                "last_name": "example_last_name24",                
+                "role": "super_admin"
+            },
+                "client": "superadmin@example.com",
+                "expected_status": 403
+        },
+        {
+            "user": { 
+                "email": "testuser25@example.com",
+                "first_name": "testuser25",
+                "last_name": "example_last_name25",                
+                "role": "user_moderator"
+            },
+                "client": "admin@example.com",
+                "expected_status": 200
+        },
+        {
+            "user": {
+                "email": "testuser26@example.com",
+                "first_name": "testuser26",
+                "last_name": "example_last_name26",                
+                "role": "admin"
+            },
+                "client": "admin@example.com",
+                "expected_status": 403
+        },
+        {
+            "user": {
+                "email": "testuser27@example.com",
+                "first_name": "testuser27",
+                "last_name": "example_last_name27",                
+                "role": "super_admin"
+            },
+                "client": "admin@example.com",
+                "expected_status": 403
+        },
+        {
+            "user": {
+                "email": "testuser28@example.com",
+                "first_name": "testuser28",
+                "last_name": "example_last_name28",                
+                "role": "user_moderator"
+            },
+                "client": "moderator@example.com",
+                "expected_status": 403
+        },
+        {
+            "user": {
+                "email": "testuser29@example.com",
+                "first_name": "testuser29",
+                "last_name": "example_last_name29",                
+                "role": "admin"
+            },
+                "client": "moderator@example.com",
+                "expected_status": 403
+        },
+        {
+            "user": {
+                "email": "testuser30@example.com",
+                "first_name": "testuser30",
+                "last_name": "example_last_name30",                
+                "role": "super_admin"
+            },
+                "client": "superadmin@example.com",
+                "expected_status": 403
+        },
+        {
+            "user": {
+                "email": "testuser31@example.com",
+                "first_name": "testuser31",
+                "last_name": "example_last_name31",                
+                "role": "hr"
+            },
+                "client": "superadmin@example.com",
+                "expected_status": 422
+        },
+        {
+            "user": {
+                "email": "testuser32@example.com",
+                "first_name": "testuser32",
+                "last_name": "example_last_name31=2",                
+                "role": "super"
+            },
+                "client": "superadmin@example.com",
+                "expected_status": 422
+        }
+    ],
+    "approve": [
+        {
+            "email": "testuser4@example.com",
+            "client": "superadmin@example.com",
+            "expected_status": 200
+        },
+        {
+            "email": "testuser5@example.com",
+            "client": "superadmin@example.com",
+            "expected_status": 200
+        },
+         {
+            "email": "testuser6@example.com",
+            "client": "superadmin@example.com",
+            "expected_status": 200
+        },
+        {
+            "email": "testuser7@example.com",
+            "client": "admin@example.com",
+            "expected_status": 200
+        },
+        {
+            "email": "testuser8@example.com",
+            "client": "admin@example.com",
+            "expected_status": 200
+        },
+        {
+            "email": "testuser9@example.com",
+            "client": "admin@example.com",
+            "expected_status": 200
+        },
+        {
+            "email": "testuser10@example.com",
+            "client": "moderator@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser11@example.com",
+            "client": "moderator@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser13@example.com",
+            "client": "moderator@example.com",
+            "expected_status": 403
+        }
+    ],
+    "change_role": [
+        {
+            "email": "testuser5@example.com",
+            "role": "super_admin",
+            "client": "superadmin@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser5@example.com",
+            "role": "mod",
+            "client": "superadmin@example.com",
+            "expected_status": 422
+        },
+        {
+            "email": "testuser5@example.com",
+            "role": "admin",
+            "client": "superadmin@example.com",
+            "expected_status": 200
+        },
+        {
+            "email": "testuser4@example.com",
+            "role": "super_admin",
+            "client": "superadmin@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser4@example.com",
+            "role": "user_moderator",
+            "client": "superadmin@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser4@example.com",
+            "role": "admin",
+            "client": "superadmin@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser4@example.com",
+            "role": "user_moderator",
+            "client": "admin@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser7@example.com",
+            "role": "super_admin",
+            "client": "admin@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser8@example.com",
+            "role": "super_admin",
+            "client": "admin@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser9@example.com",
+            "role": "super_admin",
+            "client": "moderator@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser10@example.com",
+            "role": "super_admin",
+            "client": "moderator@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser11@example.com",
+            "role": "super_admin",
+            "client": "moderator@example.com",
+            "expected_status": 403
+        }
+    ],
+    "delete": [
+        {
+            "email": "testuser13@example.com",
+            "client": "superadmin@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser14@example.com",
+            "client": "superadmin@example.com",
+            "expected_status": 200
+        },
+        {
+            "email": "testuser15@example.com",
+            "client": "superadmin@example.com",
+            "expected_status": 200
+        },
+        {
+            "email": "testuser16@example.com",
+            "client": "admin@example.com",
+            "expected_status": 403
+
+        },
+        {
+            "email": "testuser17@example.com",
+            "client": "admin@example.com",
+            "expected_status": 403
+
+        },
+        {
+            "email": "testuser18@example.com",
+            "client": "admin@example.com",
+            "expected_status": 200
+
+        },
+        {
+            "email": "testuser19@example.com",
+            "client": "moderator@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser20@example.com",
+            "client": "moderator@example.com",
+            "expected_status": 403
+        },
+        {
+            "email": "testuser21@example.com",
+            "client": "moderator@example.com",
+            "expected_status": 403
+        }
+    ]
+
+}
+  
